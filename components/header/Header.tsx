@@ -5,7 +5,7 @@ import { MapPin } from "lucide-react";
 
 export default function Header() {
   return (
-    <header className="w-full h-16 flex items-center justify-between px-6 bg-white">
+    <header className=" mx-auto px-6 w-full h-16 flex items-center justify-between bg-white shadow-md">
       <div className="flex items-center gap-8">
         <Logo />
         <NavMenu />
@@ -13,7 +13,7 @@ export default function Header() {
       <div className="hidden md:flex items-center gap-12">
         <Link
           href="/store-locator"
-          className="flex items-center text-sm font-medium text-gray-700 hover:text-green-900"
+          className="flex items-center text-sm font-medium text-gray-700 hover:text-primary-dark"
         >
           <MapPin className="inline-block mr-1" size={16} />
           Find a store
