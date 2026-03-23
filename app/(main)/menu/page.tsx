@@ -6,17 +6,17 @@ export default function page() {
   return (
     <div>
       <h2> Menu </h2>
-      {menuData.map((item, index) => {
+      {menuData.map((item) => {
         return (
-          <div key={index} className="flex flex-col gap-2">
+          <div key={item.id} className="flex flex-col gap-2">
             <h3 className="text-sm font-bold text-gray-700 border-b w-full">
-              {item.category}
+              {item.name}
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
-              {item.items.map((subItem, subIndex) => (
+              {item.subCategories.map((subItem) => (
                 <Link
-                  key={subIndex}
-                  href={`/menu/${item.categorySlug.toLowerCase()}/${subItem.slug}`}
+                  key={subItem.id}
+                  href={`/menu/${item.slug.toLowerCase()}/${subItem.slug}`}
                   className="text-sm text-gray-600 cursor-pointer flex flex-row gap-2"
                 >
                   <Image
