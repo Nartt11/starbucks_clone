@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Logo from "./Logo";
-import NavMenu from "./NavMenu";
+import NavHeader from "./NavHeader";
 import { MapPin } from "lucide-react";
 
 export default function Header() {
@@ -8,7 +8,7 @@ export default function Header() {
     <header className=" mx-auto px-6 w-full h-16 flex items-center justify-between bg-white shadow-md">
       <div className="flex items-center gap-8">
         <Logo />
-        <NavMenu />
+        <NavHeader />
       </div>
       <div className="hidden md:flex items-center gap-12">
         <Link

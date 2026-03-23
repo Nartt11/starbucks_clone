@@ -16,7 +16,7 @@ const NavData = [
     href: "/gift",
   },
 ];
-export default function NavMenu() {
+export default function NavHeader() {
   return (
     <div className="hidden md:flex items-center gap-6">
       {NavData.map((item) => {
