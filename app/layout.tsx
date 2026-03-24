@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Montserrat } from "next/font/google";
 import "./globals.css";
 import { Inter } from "next/font/google";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
-const geistMontserrat = Montserrat({
+const montserrat = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin"],
   display: "swap",
@@ -25,13 +26,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistMontserrat.className} h-full antialiased`}
-    >
+    <html lang="en" className={`${montserrat.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
-        <main className="flex-1">{children}</main>
-        <p className="font-montserrat">text</p>
+        <TooltipProvider>
+          <main className="flex-1">{children}</main>
+        </TooltipProvider>
       </body>
     </html>
   );

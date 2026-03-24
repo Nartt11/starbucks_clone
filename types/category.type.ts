@@ -12,5 +12,10 @@ export interface SubCategory {
   name: string;
   slug: string;
   image: string;
-  products: Product[];
+  productGroups: {
+    id: number;
+    name: string;
+    slug: string;
+    products: Product[];
+  }[];
 }
