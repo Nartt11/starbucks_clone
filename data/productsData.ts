@@ -18,14 +18,14 @@ export const HotCoffeesData: SubCategory = {
           name: "Featured Blonde Roast",
           slug: "featured-blonde-roast",
           image:
-            "https://images.unsplash.com/photo-1544787210-2211d7c929c7?q=80&w=200",
+            "https://images.unsplash.com/photo-1773332585749-5146862ba746?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
           calories: 5,
           basePrice: 2.75,
           sizeOptions: [
-            { name: "Short", priceExtended: -0.5 },
-            { name: "Tall", priceExtended: 0 },
-            { name: "Grande", priceExtended: 0.5 },
-            { name: "Venti", priceExtended: 1.0 },
+            { id: 1, name: "Short", priceExtended: -0.5 },
+            { id: 2, name: "Tall", priceExtended: 0 },
+            { id: 3, name: "Grande", priceExtended: 0.5 },
+            { id: 4, name: "Venti", priceExtended: 1.0 },
           ],
           customizeOptions: [],
         },
@@ -45,16 +45,16 @@ export const HotCoffeesData: SubCategory = {
           calories: 190,
           basePrice: 4.25,
           sizeOptions: [
-            { name: "Tall", priceExtended: 0 },
-            { name: "Grande", priceExtended: 0.5 },
+            { id: 1, name: "Tall", priceExtended: 0 },
+            { id: 2, name: "Grande", priceExtended: 0.5 },
           ],
           customizeOptions: [
             {
               name: "Milk",
               options: [
-                { name: "2% Milk", priceExtended: 0 },
-                { name: "Oatmilk", priceExtended: 0.75 },
-                { name: "Almondmilk", priceExtended: 0.75 },
+                { id: 1, name: "2% Milk", priceExtended: 0 },
+                { id: 2, name: "Oatmilk", priceExtended: 0.75 },
+                { id: 3, name: "Almondmilk", priceExtended: 0.75 },
               ],
             },
           ],
@@ -85,9 +85,9 @@ export const ColdCoffeesData: SubCategory = {
           calories: 5,
           basePrice: 4.45,
           sizeOptions: [
-            { name: "Tall", priceExtended: 0 },
-            { name: "Grande", priceExtended: 0.4 },
-            { name: "Venti", priceExtended: 0.8 },
+            { id: 1, name: "Tall", priceExtended: 0 },
+            { id: 2, name: "Grande", priceExtended: 0.4 },
+            { id: 3, name: "Venti", priceExtended: 0.8 },
           ],
           customizeOptions: [],
         },
@@ -121,7 +121,7 @@ export const HotBreakfastData: SubCategory = {
           customizeOptions: [
             {
               name: "Add-ons",
-              options: [{ name: "Extra Bacon", priceExtended: 1.5 }],
+              options: [{ id: 1, name: "Extra Bacon", priceExtended: 1.5 }],
             },
           ],
         },
@@ -179,8 +179,8 @@ export const WholeBeanData: SubCategory = {
           calories: 0,
           basePrice: 16.95,
           sizeOptions: [
-            { name: "250g", priceExtended: 0 },
-            { name: "500g", priceExtended: 12.0 },
+            { id: 1, name: "250g", priceExtended: 0 },
+            { id: 2, name: "500g", priceExtended: 12.0 },
           ],
           customizeOptions: [],
         },
@@ -211,8 +211,8 @@ export const MugsData: SubCategory = {
           calories: 0,
           basePrice: 14.95,
           sizeOptions: [
-            { name: "12 fl oz", priceExtended: 0 },
-            { name: "16 fl oz", priceExtended: 3.0 },
+            { id: 1, name: "12 fl oz", priceExtended: 0 },
+            { id: 2, name: "16 fl oz", priceExtended: 3.0 },
           ],
           customizeOptions: [],
         },

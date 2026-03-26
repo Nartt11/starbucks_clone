@@ -1,4 +1,8 @@
 "use client";
+const ProductItem = lazy(
+  () => import("../../../../../../components/product/ProductItem"),
+);
+import LoadingSkeleton from "@/components/LoadingSkeleton";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -10,6 +14,7 @@ import { menuData } from "@/data/menuData";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import { lazy, Suspense } from "react";
 
 export default function Page() {
   const params = useParams<{ category: string; slug: string }>();
@@ -29,7 +34,7 @@ export default function Page() {
 
     if (!category) {
       console.warn(`Không tìm thấy Category với slug: ${categorySlug}`);
-      return undefined;
+      return;
     }
 
     const subCategory = category.subCategories.find(
@@ -73,22 +78,9 @@ export default function Page() {
             <hr />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               {group.products.map((product) => (
-                <Link
-                  key={product.id}
-                  href={`/menu/product/${product.id}`}
-                  className="p-4 flex flex-col items-center gap-2"
-                >
-                  <Image
-                    src={product.image}
-                    alt={product.name}
-                    width={200}
-                    height={200}
-                    className="w-48 h-48 object-cover rounded-full"
-                  />
-                  <h4 className="text-lg font-medium text-gray-800">
-                    {product.name}
-                  </h4>
-                </Link>
+                <Suspense key={product.id} fallback={<LoadingSkeleton />}>
+                  <ProductItem product={product} />
+                </Suspense>
               ))}
             </div>
           </div>
@@ -109,7 +101,7 @@ export default function Page() {
 //     products: [
 //       {
 //         id: 1,
-//         name: "Caffe Americano",
+//         name: "Caffee Americano",
 //       },
 //     ],
 //   },
