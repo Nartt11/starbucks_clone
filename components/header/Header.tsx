@@ -1,9 +1,12 @@
+"use client";
 import Link from "next/link";
 import Logo from "./Logo";
 import NavHeader from "./NavHeader";
 import { MapPin } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function Header() {
+  const { user } = useAuth();
   return (
     <header className=" mx-auto px-6 w-full h-16 flex items-center justify-between bg-white shadow-md">
       <div className="flex items-center gap-8">
@@ -18,21 +21,26 @@ export default function Header() {
           <MapPin className="inline-block mr-1" size={16} />
           Find a store
         </Link>
-
-        <div className="flex items-center gap-4">
-          <Link
-            href="/account/signin"
-            className="rounded-4xl py-2 px-4 border-2 hover:bg-gray-100 text-black font-bold text-sm cursor-pointer"
-          >
-            Sign In
-          </Link>
-          <Link
-            href="/account/create"
-            className="rounded-4xl py-2 px-4 border-2 hover:bg-gray-800 text-white bg-black text-sm font-bold cursor-pointer"
-          >
-            Join Now
-          </Link>
-        </div>
+        {user ? (
+          <div>
+            <p className="text-sm font-medium text-gray-700">{user.email}</p>
+          </div>
+        ) : (
+          <div className="flex items-center gap-4">
+            <Link
+              href="/account/signin"
+              className="rounded-4xl py-2 px-4 border-2 hover:bg-gray-100 text-black font-bold text-sm cursor-pointer"
+            >
+              Sign In
+            </Link>
+            <Link
+              href="/account/create"
+              className="rounded-4xl py-2 px-4 border-2 hover:bg-gray-800 text-white bg-black text-sm font-bold cursor-pointer"
+            >
+              Join Now
+            </Link>
+          </div>
+        )}
       </div>
     </header>
   );

@@ -1,11 +1,13 @@
+"use client";
 import { authService } from "@/services/authService";
-import { LoginData } from "@/types/auth.type";
+import { LoginData, User } from "@/types/auth.type";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 export const useAuth = () => {
   const router = useRouter();
+  const user: User | null = JSON.parse(localStorage.getItem("user") || "null");
 
   const loginMutation = useMutation({
     mutationFn: async (data: LoginData) => {
@@ -15,6 +17,7 @@ export const useAuth = () => {
 
     onSuccess: (data) => {
       localStorage.setItem("token", data.accessToken);
+      localStorage.setItem("user", JSON.stringify(data.user));
       toast.success("Sign in successful!");
       router.push("/");
     },
@@ -24,5 +27,6 @@ export const useAuth = () => {
     login: loginMutation.mutate,
     loginAsync: loginMutation.mutateAsync,
     isLoading: loginMutation.isPending,
+    user,
   };
 };

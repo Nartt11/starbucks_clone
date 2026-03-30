@@ -25,4 +25,9 @@ export type User = {
   username: string;
   email: string;
   fullname: string;
+  createdAt: string;
+  emailVerified: boolean;
+  roles: string[];
+  status: string;
+  updatedAt: string;
 };
