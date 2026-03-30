@@ -6,14 +6,16 @@ export interface Product {
   calories: number;
   basePrice: number;
   sizeOptions: {
-    id: number;
+    key: string;
     name: string;
     priceExtended: number;
   }[];
   customizeOptions: {
     name: string;
-    options: {
-      id: number;
+    key: string;
+    type: "select" | "input";
+    options?: {
+      key: string;
       name: string;
       priceExtended: number;
     }[];

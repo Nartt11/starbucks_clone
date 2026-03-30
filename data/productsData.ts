@@ -18,14 +18,29 @@ export const HotCoffeesData: SubCategory = {
           name: "Featured Blonde Roast",
           slug: "featured-blonde-roast",
           image:
-            "https://images.unsplash.com/photo-1773332585749-5146862ba746?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            "https://images.unsplash.com/photo-1544787210-2211d7c929c7?q=80&w=200",
           calories: 5,
           basePrice: 2.75,
           sizeOptions: [
-            { id: 1, name: "Short", priceExtended: -0.5 },
-            { id: 2, name: "Tall", priceExtended: 0 },
-            { id: 3, name: "Grande", priceExtended: 0.5 },
-            { id: 4, name: "Venti", priceExtended: 1.0 },
+            { key: "short", name: "Short", priceExtended: -0.5 },
+            { key: "tall", name: "Tall", priceExtended: 0 },
+            { key: "grande", name: "Grande", priceExtended: 0.5 },
+            { key: "venti", name: "Venti", priceExtended: 1.0 },
+          ],
+          customizeOptions: [],
+        },
+        {
+          id: 4,
+          name: "Pike Place® Roast",
+          slug: "pike-place-roast",
+          image:
+            "https://images.unsplash.com/photo-1502462041640-b3d7e50d0660?q=80&w=200",
+          calories: 10,
+          basePrice: 2.95,
+          sizeOptions: [
+            { key: "tall", name: "Tall", priceExtended: 0 },
+            { key: "grande", name: "Grande", priceExtended: 0.4 },
+            { key: "venti", name: "Venti", priceExtended: 0.8 },
           ],
           customizeOptions: [],
         },
@@ -45,16 +60,60 @@ export const HotCoffeesData: SubCategory = {
           calories: 190,
           basePrice: 4.25,
           sizeOptions: [
-            { id: 1, name: "Tall", priceExtended: 0 },
-            { id: 2, name: "Grande", priceExtended: 0.5 },
+            { key: "tall", name: "Tall", priceExtended: 0 },
+            { key: "grande", name: "Grande", priceExtended: 0.5 },
           ],
           customizeOptions: [
             {
+              key: "milk",
+              type: "select",
               name: "Milk",
               options: [
-                { id: 1, name: "2% Milk", priceExtended: 0 },
-                { id: 2, name: "Oatmilk", priceExtended: 0.75 },
-                { id: 3, name: "Almondmilk", priceExtended: 0.75 },
+                { key: "2-percent", name: "2% Milk", priceExtended: 0 },
+                { key: "oat", name: "Oatmilk", priceExtended: 0.75 },
+                { key: "almond", name: "Almondmilk", priceExtended: 0.75 },
+              ],
+            },
+          ],
+        },
+        {
+          id: 5,
+          name: "Caramel Macchiato",
+          slug: "caramel-macchiato",
+          image:
+            "https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=200",
+          calories: 250,
+          basePrice: 4.95,
+          sizeOptions: [
+            { key: "tall", name: "Tall", priceExtended: 0 },
+            { key: "grande", name: "Grande", priceExtended: 0.7 },
+            { key: "venti", name: "Venti", priceExtended: 1.3 },
+          ],
+          customizeOptions: [
+            {
+              key: "milk",
+              type: "select",
+              name: "Milk",
+              options: [
+                { key: "2-percent", name: "2% Milk", priceExtended: 0 },
+                { key: "oat", name: "Oatmilk", priceExtended: 0.8 },
+              ],
+            },
+            {
+              key: "toppings",
+              type: "select",
+              name: "Toppings",
+              options: [
+                {
+                  key: "caramel-drizzle",
+                  name: "Caramel Drizzle",
+                  priceExtended: 0,
+                },
+                {
+                  key: "extra-caramel",
+                  name: "Extra Caramel",
+                  priceExtended: 0.6,
+                },
               ],
             },
           ],
@@ -85,11 +144,44 @@ export const ColdCoffeesData: SubCategory = {
           calories: 5,
           basePrice: 4.45,
           sizeOptions: [
-            { id: 1, name: "Tall", priceExtended: 0 },
-            { id: 2, name: "Grande", priceExtended: 0.4 },
-            { id: 3, name: "Venti", priceExtended: 0.8 },
+            { key: "tall", name: "Tall", priceExtended: 0 },
+            { key: "grande", name: "Grande", priceExtended: 0.4 },
+            { key: "venti", name: "Venti", priceExtended: 0.8 },
           ],
           customizeOptions: [],
+        },
+        {
+          id: 6,
+          name: "Vanilla Sweet Cream Cold Brew",
+          slug: "vanilla-sweet-cream-cold-brew",
+          image:
+            "https://images.unsplash.com/photo-1523365280197-f21d6e9de0c0?q=80&w=200",
+          calories: 200,
+          basePrice: 4.95,
+          sizeOptions: [
+            { key: "tall", name: "Tall", priceExtended: 0 },
+            { key: "grande", name: "Grande", priceExtended: 0.5 },
+            { key: "venti", name: "Venti", priceExtended: 1.0 },
+          ],
+          customizeOptions: [
+            {
+              key: "cream",
+              type: "select",
+              name: "Cream",
+              options: [
+                {
+                  key: "vanilla-sweet-cream",
+                  name: "Vanilla Sweet Cream",
+                  priceExtended: 0,
+                },
+                {
+                  key: "extra-sweet-cream",
+                  name: "Extra Sweet Cream",
+                  priceExtended: 0.7,
+                },
+              ],
+            },
+          ],
         },
       ],
     },
@@ -120,10 +212,25 @@ export const HotBreakfastData: SubCategory = {
           sizeOptions: [],
           customizeOptions: [
             {
+              key: "add-ons",
+              type: "select",
               name: "Add-ons",
-              options: [{ id: 1, name: "Extra Bacon", priceExtended: 1.5 }],
+              options: [
+                { key: "extra-bacon", name: "Extra Bacon", priceExtended: 1.5 },
+              ],
             },
           ],
+        },
+        {
+          id: 23,
+          name: "Sausage, Cheddar & Egg Sandwich",
+          slug: "sausage-cheddar-egg-sandwich",
+          image:
+            "https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=200",
+          calories: 480,
+          basePrice: 4.95,
+          sizeOptions: [],
+          customizeOptions: [],
         },
       ],
     },
@@ -153,6 +260,31 @@ export const BakeryData: SubCategory = {
           sizeOptions: [],
           customizeOptions: [],
         },
+        {
+          id: 24,
+          name: "Plain Bagel",
+          slug: "plain-bagel",
+          image:
+            "https://images.unsplash.com/photo-1577563826477-9da6c8a854fd?q=80&w=200",
+          calories: 280,
+          basePrice: 2.45,
+          sizeOptions: [],
+          customizeOptions: [
+            {
+              key: "spreads",
+              type: "select",
+              name: "Spreads",
+              options: [
+                {
+                  key: "cream-cheese",
+                  name: "Cream Cheese",
+                  priceExtended: 0.8,
+                },
+                { key: "butter", name: "Butter", priceExtended: 0.4 },
+              ],
+            },
+          ],
+        },
       ],
     },
   ],
@@ -179,8 +311,22 @@ export const WholeBeanData: SubCategory = {
           calories: 0,
           basePrice: 16.95,
           sizeOptions: [
-            { id: 1, name: "250g", priceExtended: 0 },
-            { id: 2, name: "500g", priceExtended: 12.0 },
+            { key: "250g", name: "250g", priceExtended: 0 },
+            { key: "500g", name: "500g", priceExtended: 12.0 },
+          ],
+          customizeOptions: [],
+        },
+        {
+          id: 32,
+          name: "Pike Place® Whole Bean",
+          slug: "pike-place-whole-bean",
+          image:
+            "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?q=80&w=200",
+          calories: 0,
+          basePrice: 14.95,
+          sizeOptions: [
+            { key: "250g", name: "250g", priceExtended: 0 },
+            { key: "1kg", name: "1kg", priceExtended: 22.0 },
           ],
           customizeOptions: [],
         },
@@ -211,9 +357,20 @@ export const MugsData: SubCategory = {
           calories: 0,
           basePrice: 14.95,
           sizeOptions: [
-            { id: 1, name: "12 fl oz", priceExtended: 0 },
-            { id: 2, name: "16 fl oz", priceExtended: 3.0 },
+            { key: "12oz", name: "12 fl oz", priceExtended: 0 },
+            { key: "16oz", name: "16 fl oz", priceExtended: 3.0 },
           ],
+          customizeOptions: [],
+        },
+        {
+          id: 42,
+          name: "Holiday Ceramic Mug",
+          slug: "holiday-ceramic-mug",
+          image:
+            "https://images.unsplash.com/photo-1517686469429-8bdb88b9f907?q=80&w=200",
+          calories: 0,
+          basePrice: 18.95,
+          sizeOptions: [{ key: "12oz", name: "12 fl oz", priceExtended: 0 }],
           customizeOptions: [],
         },
       ],

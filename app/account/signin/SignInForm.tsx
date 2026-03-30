@@ -2,15 +2,11 @@
 
 import {
   Field,
-  FieldContent,
   FieldDescription,
   FieldError,
   FieldGroup,
   FieldLabel,
-  FieldLegend,
-  FieldSeparator,
   FieldSet,
-  FieldTitle,
 } from "@/components/ui/field";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -31,66 +27,52 @@ import { Eye, EyeClosed } from "lucide-react";
 
 import { useState } from "react";
 import Link from "next/link";
+import { loginSchema } from "@/lib/schemas/auth-schema";
+import { LoginData } from "@/types/auth.type";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function SignInForm() {
+  const { login, isLoading } = useAuth();
+
   const [isVisible, setIsVisible] = useState(false);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginData>({
+    resolver: zodResolver(loginSchema),
+  });
 
-  const formData = new FormData();
-
-  const resetFormData = () => {
-    formData.delete("username");
-    formData.delete("password");
-    setUsername("");
-    setPassword("");
-  };
-
-  const validateForm = () => {
-    if (!username.trim()) {
-      setError("Please enter your username or email.");
-      return false;
-    }
-    if (!password.trim()) {
-      setError("Please enter your password.");
-      return false;
-    }
-    setError("");
-    return true;
-  };
-
-  const handleSubmitSignIn = () => {
-    if (!validateForm()) {
-      return;
-    }
-    formData.append("username", username);
-    formData.append("password", password);
-
-    alert(`${formData.get("username")} ${formData.get("password")}`);
-    // Handle form submission logic here, such as sending the formData to an API endpoint.
-
-    resetFormData();
+  const handleSubmitSignIn = async (data: LoginData) => {
+    login(data);
   };
 
   return (
-    <div className="flex flex-col gap-4">
+    <form
+      onSubmit={handleSubmit(handleSubmitSignIn)}
+      className="flex flex-col gap-4"
+    >
       <FieldSet>
         <FieldDescription>
           <span className="text-primary-dark">*</span> indicates required field
         </FieldDescription>
         <FieldGroup>
           <Field>
-            <FieldLabel htmlFor="name">Username </FieldLabel>
+            <FieldLabel htmlFor="usernameOrEmail">
+              Email or Username{" "}
+            </FieldLabel>
 
             <Input
-              id="name"
+              id="usernameOrEmail"
               autoComplete="off"
               placeholder="Username or email address"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              {...register("emailOrUsername")}
             />
-            {error && <FieldError>Error:Enter an email/username.</FieldError>}
+            {errors.emailOrUsername && (
+              <FieldError> {errors.emailOrUsername.message} </FieldError>
+            )}
           </Field>
           <Field>
             <FieldLabel htmlFor="password">Password</FieldLabel>
@@ -100,8 +82,7 @@ export default function SignInForm() {
                 id="password"
                 placeholder="Password"
                 type={isVisible ? "text" : "password"}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                {...register("password")}
               />
               <InputGroupAddon align="inline-end">
                 <InputGroupButton
@@ -114,7 +95,9 @@ export default function SignInForm() {
                 </InputGroupButton>
               </InputGroupAddon>
             </InputGroup>
-            {error && <FieldError>Error:Enter an email/username.</FieldError>}
+            {errors.password && (
+              <FieldError> {errors.password.message} </FieldError>
+            )}
           </Field>
         </FieldGroup>
       </FieldSet>
@@ -149,16 +132,16 @@ export default function SignInForm() {
         <Tooltip>
           <TooltipTrigger>
             <p className="text-green-800 text-left inline-block font-semibold underline hover:no-underline">
-              Forgot your username?
+              Forgot your Username?
             </p>
           </TooltipTrigger>
           <TooltipContent className="max-w-xs text-xs leading-snug">
-            <p>You can now use your email instead of a username.</p>
+            <p>You can now use your email instead of a Username.</p>
           </TooltipContent>
         </Tooltip>
         <Link
           className="text-green-800 font-semibold underline hover:no-underline"
-          href="#"
+          href="/account/forgot-password"
         >
           Forgot your password?
         </Link>
@@ -166,12 +149,12 @@ export default function SignInForm() {
 
       <div className="flex justify-end">
         <Button
-          onClick={() => handleSubmitSignIn()}
+          type="submit"
           className="rounded-full px-8 py-4 font-semibold bg-green-800 hover:bg-green-900 text-white shadow-md"
         >
-          Sign in
+          {isLoading ? "Signing in..." : "Sign in"}
         </Button>
       </div>
-    </div>
+    </form>
   );
 }

@@ -11,7 +11,7 @@ const menuItems = [
 export default function NavMenu() {
   const pathname = usePathname();
   return (
-    <div className="sticky w-full top-0  flex items-center gap-6 py-4 px-6 bg-gray-100 border-2 border-gray-300 inset-shadow-sm">
+    <div className="sticky w-full top-0 flex items-center gap-6 py-4 px-6  bg-gray-100 border-2 border-gray-300 inset-shadow-sm">
       <div className="container mx-auto max-w-7xl flex flex-row items-center space-x-8  ">
         {menuItems.map((item, index) => (
           <div

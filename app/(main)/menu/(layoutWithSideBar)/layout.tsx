@@ -9,8 +9,8 @@ export default function MenuLayout({
   return (
     <div className="flex flex-col min-h-screen">
       <NavMenu />
-      <main className="flex-1 container mx-auto max-w-7xl flex flex-row gap-8 py-8">
-        <MenuSideBar />
+      <main className="flex-1 container mx-auto w-full max-w-7xl flex flex-row gap-6 py-4 px-6 md:px-1">
+        <MenuSideBar className="hidden lg:block" />
         {children}
       </main>
     </div>

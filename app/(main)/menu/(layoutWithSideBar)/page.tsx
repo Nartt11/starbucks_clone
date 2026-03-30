@@ -7,20 +7,21 @@ import { Suspense } from "react";
 export default function page() {
   return (
     <div>
-      <h2> Menu </h2>
+      <h1 className="font-bold text-3xl pb-4 md:pb-5 lg:pb-7"> Menu </h1>
       {menuData.map((item) => {
         return (
           <div key={item.id} className="flex flex-col gap-2">
-            <h3 className="text-sm font-bold text-gray-700 border-b w-full">
+            <h2 className="text-2xl font-bold text-gray-900 w-full pb-3 md:pb4">
               {item.name}
-            </h3>
+            </h2>
+            <hr className="h-px w-full bg-gray-700 mb-4" />
             <Suspense fallback={<LoadingSkeleton />}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 items-center pb-3">
                 {item.subCategories.map((subItem) => (
                   <Link
                     key={subItem.id}
                     href={`/menu/${item.slug.toLowerCase()}/${subItem.slug}`}
-                    className="text-sm text-gray-600 cursor-pointer flex flex-row gap-2"
+                    className="text-sm font-medium text-gray-800 cursor-pointer flex items-center flex-row gap-3"
                   >
                     <Image
                       src={subItem.image}
