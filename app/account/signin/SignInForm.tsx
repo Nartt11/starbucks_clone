@@ -163,16 +163,20 @@ export default function SignInForm() {
       <div className="flex justify-end">
         <Button
           type="submit"
+          disabled={isLoginLoading}
           className="rounded-full px-8 py-4 font-semibold bg-green-800 hover:bg-green-900 text-white shadow-md"
         >
           {isLoginLoading ? (
             <span>
-              <LoaderCircle size={24} className="animate-spin mr-3" />
+              <LoaderCircle
+                size={32}
+                strokeWidth={5}
+                className="animate-spin"
+              />
             </span>
           ) : (
-            ""
+            "Sign in"
           )}
-          Sign in
         </Button>
       </div>
     </form>

@@ -41,7 +41,6 @@ export default function CreateForm() {
     try {
       await registerAsync(data);
     } catch (error: any) {
-      console.log("ERROR HERE:", error);
       setError("root", {
         type: "server",
         message: error.message,
@@ -183,12 +182,15 @@ export default function CreateForm() {
         >
           {isRegisterLoading ? (
             <span>
-              <LoaderCircle size={24} className="animate-spin mr-3" />
+              <LoaderCircle
+                size={24}
+                strokeWidth={5}
+                className="animate-spin mr-3"
+              />
             </span>
           ) : (
-            ""
+            "Create account"
           )}
-          Create account
         </button>
       </div>
     </form>
