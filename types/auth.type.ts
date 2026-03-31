@@ -1,7 +1,7 @@
 import { loginSchema, registerSchema } from "@/lib/schemas/auth-schema";
 import z from "zod";
 
-export type ResgisterData = z.infer<typeof registerSchema>;
+export type RegisterData = z.infer<typeof registerSchema>;
 export type LoginData = z.infer<typeof loginSchema>;
 
 export interface ApiResponse<T> {

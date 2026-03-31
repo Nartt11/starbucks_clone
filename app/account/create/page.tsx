@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import CreateForm from "./CreateForm";
 
 export const metadata: Metadata = {
   title: "Create an account | Starbucks® Rewards",
@@ -7,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function page() {
   return (
-    <div className="mx-auto flex flex-col items-center">
+    <div className="mx-auto flex flex-col items-center max-w-md px-4 py-14">
       {/* text */}
 
       <div className="flex flex-col items-center align-middle max-w-md">
@@ -22,13 +23,12 @@ export default function page() {
         </p>
       </div>
       {/* card */}
-      <div className="flex flex-col shadow-lg rounded-lg p-10 w-full max-w-xl">
-        <div className="flex justify-end mt6">
-          <button className="bg-primary-dark text-white py-4 px-6 rounded-full font-semibold shadow-2xs font-monterrat">
-            Create account
-          </button>
-        </div>
+      <div className="max-w-sm">
+        <CreateForm />
       </div>
+      {/* <div className="flex flex-col shadow-lg rounded-lg p-10 w-full max-w-xl">
+        
+      </div> */}
     </div>
   );
 }

@@ -23,7 +23,7 @@ import {
   InputGroupInput,
 } from "@/components/ui/input-group";
 
-import { Eye, EyeClosed } from "lucide-react";
+import { Eye, EyeClosed, LoaderCircle } from "lucide-react";
 
 import { useState } from "react";
 import Link from "next/link";
@@ -34,19 +34,27 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuth } from "@/hooks/useAuth";
 
 export default function SignInForm() {
-  const { login, isLoading } = useAuth();
+  const { loginAsync, isLoginLoading } = useAuth();
 
   const [isVisible, setIsVisible] = useState(false);
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<LoginData>({
     resolver: zodResolver(loginSchema),
   });
 
   const handleSubmitSignIn = async (data: LoginData) => {
-    login(data);
+    try {
+      await loginAsync(data);
+    } catch (error) {
+      setError("root", {
+        type: "server",
+        message: error.message,
+      });
+    }
   };
 
   return (
@@ -57,6 +65,11 @@ export default function SignInForm() {
       <FieldSet>
         <FieldDescription>
           <span className="text-primary-dark">*</span> indicates required field
+          {errors.root && (
+            <div className="text-red-500 text-sm font-medium border-red-500 border rounded-md p-2 mt-2">
+              {errors.root.message}
+            </div>
+          )}
         </FieldDescription>
         <FieldGroup>
           <Field>
@@ -152,7 +165,14 @@ export default function SignInForm() {
           type="submit"
           className="rounded-full px-8 py-4 font-semibold bg-green-800 hover:bg-green-900 text-white shadow-md"
         >
-          {isLoading ? "Signing in..." : "Sign in"}
+          {isLoginLoading ? (
+            <span>
+              <LoaderCircle size={24} className="animate-spin mr-3" />
+            </span>
+          ) : (
+            ""
+          )}
+          Sign in
         </Button>
       </div>
     </form>

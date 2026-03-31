@@ -13,15 +13,6 @@ api.interceptors.response.use(
   (error) => {
     const status = error.response?.status;
 
-    if (status === 401) {
-      toast.error(
-        error?.response?.data?.message || "Unauthorized. Please log in again.",
-      );
-
-      localStorage.removeItem("token");
-      // window.location.href = "account/signin";
-    }
-
     if (status === 400) {
       toast.error(
         error?.response?.data?.message ||
