@@ -26,4 +26,15 @@ export const authService = {
       throw new Error(error?.response?.data?.message || "Register failed");
     }
   },
+
+  forgotPassword: async (username: string): Promise<ApiResponse<null>> => {
+    try {
+      const res = await api.post("/auth/forgotpassword", username);
+      return res.data;
+    } catch (error: any) {
+      throw new Error(
+        error?.response?.data?.message || "forgot password failed",
+      );
+    }
+  },
 };

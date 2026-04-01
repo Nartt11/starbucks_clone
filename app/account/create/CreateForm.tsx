@@ -69,8 +69,9 @@ export default function CreateForm() {
             <Input
               id="username"
               autoComplete="off"
+              disabled={isRegisterLoading}
               placeholder="Your username"
-              // onError={errors.username}
+              className={` ${errors.username ? " border-red-500" : ""} `}
               {...register("username")}
             />
             {errors.username && (
@@ -90,16 +91,21 @@ export default function CreateForm() {
             autoComplete="off"
             placeholder="Your email address"
             {...register("email")}
+            disabled={isRegisterLoading}
+            className={` ${errors.email ? " border-red-500" : ""} `}
           />
           {errors.email && <FieldError>{errors.email.message}</FieldError>}
         </Field>
 
         <Field>
           <FieldLabel htmlFor="password">Password</FieldLabel>
-          <InputGroup>
+          <InputGroup
+            className={` ${errors.password ? " border-red-500" : ""} `}
+          >
             <InputGroupInput
               id="password"
               placeholder="Password"
+              disabled={isRegisterLoading}
               type={isVisible ? "text" : "password"}
               {...register("password")}
             />

@@ -80,8 +80,10 @@ export default function SignInForm() {
             <Input
               id="usernameOrEmail"
               autoComplete="off"
+              disabled={isLoginLoading}
               placeholder="Username or email address"
               {...register("emailOrUsername")}
+              className={` ${errors.emailOrUsername ? " border-red-500" : ""} `}
             />
             {errors.emailOrUsername && (
               <FieldError> {errors.emailOrUsername.message} </FieldError>
@@ -90,10 +92,13 @@ export default function SignInForm() {
           <Field>
             <FieldLabel htmlFor="password">Password</FieldLabel>
 
-            <InputGroup>
+            <InputGroup
+              className={` ${errors.password ? " border-red-500" : ""} `}
+            >
               <InputGroupInput
                 id="password"
                 placeholder="Password"
+                disabled={isLoginLoading}
                 type={isVisible ? "text" : "password"}
                 {...register("password")}
               />
