@@ -19,5 +19,15 @@ export interface Product {
       name: string;
       priceExtended: number;
     }[];
+    defaultValue?: number;
+    unit?: string;
   }[];
 }
+
+export type SelectedProduct = {
+  id: number;
+  options: {
+    type: string;
+    value: string;
+  }[];
+};

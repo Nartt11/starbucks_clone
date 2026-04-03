@@ -1,4 +1,3 @@
-"use client";
 import { authService } from "@/services/authService";
 import { LoginData, RegisterData, User } from "@/types/auth.type";
 import { useMutation } from "@tanstack/react-query";
@@ -7,7 +6,12 @@ import { useRouter } from "next/navigation";
 
 export const useAuth = () => {
   const router = useRouter();
-  const user: User | null = JSON.parse(localStorage.getItem("user") || "null");
+  let user: User | null = null;
+  if (typeof window !== "undefined") {
+    user = JSON.parse(localStorage.getItem("user") || "null");
+  }
+
+  console.log("user in useAuth", user);
 
   const loginMutation = useMutation({
     mutationFn: async (data: LoginData) => {
@@ -16,8 +20,10 @@ export const useAuth = () => {
     },
 
     onSuccess: (data) => {
-      localStorage.setItem("token", data.accessToken);
-      localStorage.setItem("user", JSON.stringify(data.user));
+      if (typeof window !== "undefined") {
+        localStorage.setItem("token", data.accessToken);
+        localStorage.setItem("user", JSON.stringify(data.user));
+      }
       toast.success("Sign in successful!");
       router.push("/");
     },

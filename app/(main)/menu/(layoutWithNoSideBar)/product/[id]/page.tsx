@@ -1,16 +1,13 @@
 "use client";
-import { Field, FieldContent, FieldLabel } from "@/components/ui/field";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Product } from "@/types/product.type";
-import Image from "next/image";
-import cup from "@/public/coffee-cup.svg";
-import { useState } from "react";
+
+import { Product, SelectedProduct } from "@/types/product.type";
+import { useEffect, useState } from "react";
+import ProductBanner from "@/components/product/ProductBanner";
+import { Button } from "@/components/ui/button";
+import ProductOrder from "@/components/product/ProductOrder";
+import ProductCustomize from "@/components/product/ProductCustomize";
+import Order from "@/components/Order";
+import { set } from "zod";
 
 export const mockProduct: Product = {
   id: 701,
@@ -53,113 +50,100 @@ export const mockProduct: Product = {
     },
     {
       key: "espresso-shots",
-      type: "select",
+      type: "input",
       name: "Espresso Shots",
-      options: [
-        { key: "single-shot", name: "Single Shot", priceExtended: 0 },
-        { key: "extra-shot", name: "Extra Shot", priceExtended: 0.9 },
-      ],
+      defaultValue: 2,
+      unit: "shot",
     },
   ],
 };
 
 export default function Page() {
-  const [selectedSize, setSelectedSize] = useState(mockProduct.sizeOptions[0]);
+  const [selectedSize, setSelectedSize] = useState<string>(
+    mockProduct.sizeOptions[0].key,
+  );
+  const [isCustomizeOpen, setIsCustomizeOpen] = useState(false);
+
+  const [selectedProduct, setSelectedProduct] = useState<SelectedProduct>();
+  const [fieldOptions, setFieldOptions] = useState<
+    { key: string; value: string }[]
+  >([]);
+
+  useEffect(() => {
+    if (!mockProduct) return;
+
+    const defaults = mockProduct.customizeOptions
+      .map((option) => {
+        if (option.type === "input" && option.defaultValue !== undefined) {
+          return {
+            key: option.key,
+            value: String(option.defaultValue),
+          };
+        }
+
+        if (option.type === "select" && option.options?.length) {
+          return {
+            key: option.key,
+            value: option.options[0].key,
+          };
+        }
+
+        return null;
+      })
+      .filter(Boolean) as { key: string; value: string }[];
+
+    setFieldOptions(defaults);
+  }, [mockProduct]);
+
+  const handleChangeOption = (key: string, value: string) => {
+    setFieldOptions((prev) => {
+      const index = prev.findIndex((opt) => opt.key === key);
+
+      if (index !== -1) {
+        const updated = [...prev];
+        updated[index].value = value;
+        return updated;
+      }
+
+      return [...prev, { key, value }];
+    });
+  };
+
+  const handleAddToCart = () => {
+    const newSelectedProduct: SelectedProduct = {
+      id: mockProduct.id,
+      options: [
+        { type: "size", value: selectedSize },
+        ...fieldOptions.map((opt) => ({
+          type: opt.key,
+          value: opt.value,
+        })),
+      ],
+    };
+
+    localStorage.setItem("selectedProduct", JSON.stringify(newSelectedProduct));
+  };
+
   return (
     <div className="flex flex-col gap-8">
       {/* product image */}
-      <div className="w-full bg-primary-dark mb-4 flex flex-col md:flex-row items-center justify-center gap-8 px-6 py-10 text-white">
-        <Image
-          src={mockProduct.image}
-          alt={mockProduct.name}
-          width={260}
-          height={260}
-          className="object-cover rounded-xl shadow-lg"
-        />
-        <div className="space-y-2 max-w-xs">
-          <p className="text-2xl font-semibold">{mockProduct.name}</p>
-          <p className="text-sm opacity-90">{mockProduct.calories} calories</p>
-        </div>
-      </div>
+      <ProductBanner mockProduct={mockProduct} />
 
       {/* main content */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 container mx-auto max-w-4xl px-6">
-        {/* Left: Size options */}
-        <section>
-          <h2 className="text-xl font-semibold text-neutral-900 mb-2">
-            Size options
-          </h2>
-          <div className="h-px bg-green-100 mb-6" />
-
-          <div className="flex gap-6 mb-10">
-            {mockProduct.sizeOptions.map((size) => (
-              <button
-                key={size.key}
-                type="button"
-                className={`flex flex-col items-center gap-2 text-sm  ${
-                  size.key === selectedSize.key
-                    ? "text-green-900 font-semibold"
-                    : "text-neutral-700"
-                }`}
-                onClick={() => setSelectedSize(size)}
-              >
-                <Image
-                  src={cup}
-                  alt={size.name}
-                  width={10}
-                  height={10}
-                  className="border-primary h-10 w-10 border-2 rounded-full bg-primary-light p-2 "
-                />
-                <span>{size.name}</span>
-              </button>
-            ))}
-          </div>
-        </section>
-
-        {/* Right: What's included */}
-        <section className="flex flex-col justify-between gap-3">
-          <div className="w-full">
-            <h2 className="text-xl font-semibold text-neutral-900 mb-2">
-              What&apos;s included
-            </h2>
-            <div className="h-px bg-green-100 mb-4" />
-
-            <div className="space-y-3">
-              {mockProduct.customizeOptions.map((group) =>
-                group.type === "select" ? (
-                  <Field
-                    key={group.key}
-                    className="w-full min-w-48 bg-white px-4 py-1 flex items-center justify-between text-sm "
-                  >
-                    <FieldLabel className="flex-1 ">
-                      <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-500">
-                        {group.name}
-                      </p>
-                    </FieldLabel>
-
-                    <FieldContent>
-                      <Select defaultValue={group.options?.[0].name}>
-                        <SelectTrigger className="w-full">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent position="popper">
-                          {group.options?.map((option) => (
-                            <SelectItem key={option.key} value={option.name}>
-                              {option.name}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </FieldContent>
-                  </Field>
-                ) : (
-                  <p key = {group.key}>t</p>
-                ),
-              )}
-            </div>
-          </div>
-        </section>
+      <div className="container mx-auto max-w-4xl px-6">
+        {!isCustomizeOpen ? (
+          <ProductOrder
+            mockProduct={mockProduct}
+            selectedSize={selectedSize}
+            setSelectedSize={setSelectedSize}
+            SetIsCustomizeOpen={setIsCustomizeOpen}
+            handleChangeOption={handleChangeOption}
+          />
+        ) : (
+          <ProductCustomize />
+        )}
       </div>
+      <Order handleAddToCart={handleAddToCart} />
     </div>
   );
 }

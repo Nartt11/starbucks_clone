@@ -1,4 +1,5 @@
 "use client";
+import Order from "@/components/Order";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -33,11 +34,6 @@ export default function MenuLayout({
       </div>
 
       <main className="flex-1">{children}</main>
-
-      <button className="fixed rounded-full bg-primary-dark font-bold text-xl text-white px-6 py-3 bottom-12 right-10 shadow-lg hover:bg-primary-dark-hover transition-colors">
-        {" "}
-        Add to order
-      </button>
     </div>
   );
 }

@@ -11,7 +11,7 @@ export default function page() {
       {menuData.map((item) => {
         return (
           <div key={item.id} className="flex flex-col gap-2">
-            <h2 className="text-2xl font-bold text-gray-900 w-full pb-3 md:pb4">
+            <h2 className="text-2xl font-bold text-gray-900 w-full p-2 md:pb4">
               {item.name}
             </h2>
             <hr className="h-px w-full bg-gray-700 mb-4" />
